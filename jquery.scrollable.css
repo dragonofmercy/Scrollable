@@ -1,6 +1,8 @@
 .scrollable {
     position: relative;
     z-index: 1;
+    margin: 0;
+    padding: 0;
 }
 
 .scrollable .scrollbar,
@@ -16,6 +18,7 @@
     margin: 0;
     width: auto;
     height: auto;
+    overflow: auto;
 }
 
 .scrollable .scrollbar {

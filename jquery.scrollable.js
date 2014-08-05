@@ -48,11 +48,12 @@
                 this.element.on('mousewheel', function(e){
                     if(e.deltaY != 0 && $this.scrolling.y.handle != null){
                         if($this.getOffset('top', $this.scrolling.y.handle) >= 0){
-                            var new_top = $this.getOffset('top', $this.scrolling.y.handle) + (e.deltaY * -1);
+                            var new_top = $this.getOffset('top', $this.scrolling.y.handle) + Math.round((e.deltaY * e.deltaFactor / 10) * -1);
                             new_top = (new_top <= 0 ? 0 : new_top);
                             new_top = (new_top + $this.scrolling.y.handle.height() >= $this.scrolling.y.container.height() ? $this.scrolling.y.container.height() - $this.scrolling.y.handle.height() : new_top);
                             if(new_top != $this.getOffset('top', $this.scrolling.y.handle)){
                                 e.preventDefault();
+                                e.stopImmediatePropagation();
                             }
                             $this.scrolling.y.handle.css('top', new_top);
                             $this.moveArea({ top: new_top }, 'y');
@@ -61,11 +62,12 @@
                     if(e.deltaX != 0 && $this.scrolling.x.handle != null){
                         if($this.getOffset('left', $this.scrolling.x.handle) >= 0){
                             e.preventDefault();
-                            var new_left = $this.getOffset('left', $this.scrolling.x.handle) + e.deltaX;
+                            var new_left = $this.getOffset('left', $this.scrolling.x.handle) + Math.round((e.deltaX * e.deltaFactor) / 2);
                             new_left = (new_left <= 0 ? 0 : new_left);
                             new_left = (new_left + $this.scrolling.x.handle.width() >= $this.scrolling.x.container.width() ? $this.scrolling.x.container.width() - $this.scrolling.x.handle.width() : new_left);
                             if(new_left != $this.getOffset('left', $this.scrolling.y.handle)){
                                 e.preventDefault();
+                                e.stopImmediatePropagation();
                             }
                             $this.scrolling.x.handle.css('left', new_left);
                             $this.moveArea({ left: new_left }, 'x');
@@ -114,16 +116,21 @@
             this.updateHandleSize();
         },
         updateContainer: function(){
-            if(!this.element.height())
-            {
-                this.element.height(this.scrollableArea.height());
+            if(this.element.is('body')){
+                this.scrollableContainer.width($(window).width());
+                this.scrollableContainer.height($(window).height());
+            } else {
+                if(!this.element.height())
+                {
+                    this.element.height(this.scrollableArea.height());
+                }
+                if(!this.element.width())
+                {
+                    this.element.width('100%');
+                }
+                this.scrollableContainer.width(this.element.width());
+                this.scrollableContainer.height(this.element.height());
             }
-            if(!this.element.width())
-            {
-                this.element.width('100%');
-            }
-            this.scrollableContainer.width(this.element.width());
-            this.scrollableContainer.height(this.element.height());
             this.updateScrollbars();
         },
         drawScrollbar: function(axis){
