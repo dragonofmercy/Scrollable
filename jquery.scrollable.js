@@ -118,12 +118,10 @@
             {
                 this.element.height(this.scrollableArea.height());
             }
-
             if(!this.element.width())
             {
                 this.element.width('100%');
             }
-
             this.scrollableContainer.width(this.element.width());
             this.scrollableContainer.height(this.element.height());
             this.updateScrollbars();
@@ -136,6 +134,12 @@
             $('.scrollbar-' + axis + ' .handle-container .handle', this.element).draggable({
                 axis: axis,
                 containment: 'parent',
+                start: function(e, ui){
+                    ui.helper.parent().parent().addClass('scrolling');
+                },
+                stop: function(e, ui){
+                    ui.helper.parent().parent().removeClass('scrolling');
+                },
                 drag: function(e, ui){
                     $this.moveArea(ui.position, axis);
                 }
