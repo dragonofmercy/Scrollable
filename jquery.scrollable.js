@@ -48,10 +48,12 @@
                 this.element.on('mousewheel', function(e){
                     if(e.deltaY != 0 && $this.scrolling.y.handle != null){
                         if($this.getOffset('top', $this.scrolling.y.handle) >= 0){
-                            e.preventDefault();
                             var new_top = $this.getOffset('top', $this.scrolling.y.handle) + (e.deltaY * -1);
                             new_top = (new_top <= 0 ? 0 : new_top);
                             new_top = (new_top + $this.scrolling.y.handle.height() >= $this.scrolling.y.container.height() ? $this.scrolling.y.container.height() - $this.scrolling.y.handle.height() : new_top);
+                            if(new_top != $this.getOffset('top', $this.scrolling.y.handle)){
+                                e.preventDefault();
+                            }
                             $this.scrolling.y.handle.css('top', new_top);
                             $this.moveArea({ top: new_top }, 'y');
                         }
@@ -62,6 +64,9 @@
                             var new_left = $this.getOffset('left', $this.scrolling.x.handle) + e.deltaX;
                             new_left = (new_left <= 0 ? 0 : new_left);
                             new_left = (new_left + $this.scrolling.x.handle.width() >= $this.scrolling.x.container.width() ? $this.scrolling.x.container.width() - $this.scrolling.x.handle.width() : new_left);
+                            if(new_left != $this.getOffset('left', $this.scrolling.y.handle)){
+                                e.preventDefault();
+                            }
                             $this.scrolling.x.handle.css('left', new_left);
                             $this.moveArea({ left: new_left }, 'x');
                         }
