@@ -69,7 +69,7 @@
                 this.element.on('mousewheel', function(e){
                     if(e.deltaY != 0 && $this.scrolling.y.handle != null){
                         if($this.getOffset('top', $this.scrolling.y.handle) >= 0){
-                            var new_top = $this.getOffset('top', $this.scrolling.y.handle) + Math.round((e.deltaY * e.deltaFactor / 10) * -1);
+                            var new_top = $this.getOffset('top', $this.scrolling.y.handle) + ((e.deltaY * e.deltaFactor) * -1);
                             new_top = (new_top <= 0 ? 0 : new_top);
                             new_top = (new_top + $this.scrolling.y.handle.height() >= $this.scrolling.y.container.height() ? $this.scrolling.y.container.height() - $this.scrolling.y.handle.height() : new_top);
                             if(new_top != $this.getOffset('top', $this.scrolling.y.handle)){
@@ -83,7 +83,7 @@
                     if(e.deltaX != 0 && $this.scrolling.x.handle != null){
                         if($this.getOffset('left', $this.scrolling.x.handle) >= 0){
                             e.preventDefault();
-                            var new_left = $this.getOffset('left', $this.scrolling.x.handle) + Math.round((e.deltaX * e.deltaFactor) / 2);
+                            var new_left = $this.getOffset('left', $this.scrolling.x.handle) + (e.deltaX * e.deltaFactor);
                             new_left = (new_left <= 0 ? 0 : new_left);
                             new_left = (new_left + $this.scrolling.x.handle.width() >= $this.scrolling.x.container.width() ? $this.scrolling.x.container.width() - $this.scrolling.x.handle.width() : new_left);
                             if(new_left != $this.getOffset('left', $this.scrolling.y.handle)){
