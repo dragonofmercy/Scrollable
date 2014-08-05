@@ -31,12 +31,13 @@
             });
             if(this.options.autoHide){
                 this.element.addClass('autohide');
-                this.element.hover(function(){
-                    $(this).addClass('hover');
-                }, function(){
-                    $(this).removeClass('hover');
-                });
             }
+            this.element.on('mousemove', function(){
+                $this.element.addClass('hover');
+            });
+            this.element.on('mouseout', function(){
+                $this.element.removeClass('hover');
+            });
             setInterval(function(){
                 if($this.lastWidth != $this.getAreaSize('width') || $this.lastHeight != $this.getAreaSize('height')){
                     $this.element.trigger('update');
@@ -141,11 +142,11 @@
             $('.scrollbar-' + axis + ' .handle-container .handle', this.element).draggable({
                 axis: axis,
                 containment: 'parent',
-                start: function(e, ui){
-                    ui.helper.parent().parent().addClass('scrolling');
+                start: function(){
+                    $this.element.addClass('scrolling');
                 },
-                stop: function(e, ui){
-                    ui.helper.parent().parent().removeClass('scrolling');
+                stop: function(){
+                    $this.element.removeClass('scrolling');
                 },
                 drag: function(e, ui){
                     $this.moveArea(ui.position, axis);
