@@ -8,6 +8,9 @@ Documentation and Demo : [http://projects.zellerda.com/scrollable](http://projec
 Changelog
 ---------
 
+jQuery Scrollable 1.1 - 6 August 2014
+ - Fix mouse scroll on lower speed
+
 jQuery Scrollable 1.0 - 5 August 2014
  - Remove beta status
  - Fix body element selection
