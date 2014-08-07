@@ -69,6 +69,9 @@
                 this.element.on('mousewheel', function(e){
                     if(e.deltaY != 0 && $this.scrolling.y.handle != null){
                         if($this.getOffset('top', $this.scrolling.y.handle) >= 0){
+                            if($this.options.transferScrolling !== true){
+                                e.preventDefault();
+                            }
                             var new_top = $this.getOffset('top', $this.scrolling.y.handle) + ((e.deltaY * e.deltaFactor) * -1);
                             new_top = (new_top <= 0 ? 0 : new_top);
                             new_top = (new_top + $this.scrolling.y.handle.height() >= $this.scrolling.y.container.height() ? $this.scrolling.y.container.height() - $this.scrolling.y.handle.height() : new_top);
@@ -82,6 +85,9 @@
                     }
                     if(e.deltaX != 0 && $this.scrolling.x.handle != null){
                         if($this.getOffset('left', $this.scrolling.x.handle) >= 0){
+                            if($this.options.transferScrolling !== true){
+                                e.preventDefault();
+                            }
                             e.preventDefault();
                             var new_left = $this.getOffset('left', $this.scrolling.x.handle) + (e.deltaX * e.deltaFactor);
                             new_left = (new_left <= 0 ? 0 : new_left);
@@ -245,7 +251,8 @@
     $.fn.scrollable.defaults = {
         onUpdate: function(){},
         mouseWheel: true,
-        autoHide: true
+        autoHide: true,
+        transferScrolling: true
     };
 })(jQuery);
 
