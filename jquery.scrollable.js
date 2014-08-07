@@ -52,7 +52,7 @@
             if(this.options.autoHide){
                 this.element.addClass('autohide');
             }
-            this.element.on('mousemove', function(){
+            this.element.on('mouseover', function(){
                 $this.element.addClass('hover');
             });
             this.element.on('mouseout', function(){
