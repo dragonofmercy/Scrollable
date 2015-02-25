@@ -15,7 +15,7 @@ Documentation and Demo : [http://projects.zellerda.com/scrollable](http://projec
 Changelog
 ---------
 
-jQuery Scrollable 1.2 - 20 Febraury 2015
+jQuery Scrollable 1.2 - 25 February 2015
  - Fix mouse scroll speed
  - Fix mouseover event
  - Add mouseWheelMaxDelta option
