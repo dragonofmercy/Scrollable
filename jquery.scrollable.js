@@ -16,9 +16,28 @@
  *
  * @author      David Zeller <me@zellerda.com>
  * @license     http://www.opensource.org/licenses/BSD-3-Clause New BSD license
- * @version     1.2
+ * @version     1.3
  */
-(function($){
+(function($, scrollable){
+
+    // Data storage constant
+    var DATA = 'scrollable';
+
+    /**
+     * Get scrollable object
+     *
+     * @param {Object} options
+     * @param {jQuery} el
+     * @returns {$.scrollable}
+     */
+    var getScrollableObject = function(options, el){
+        if(!el.data(DATA)){
+            var obj = new $.scrollable($.extend({}, $.fn.scrollable.defaults, options));
+            el.data(DATA, obj);
+            obj.init(el);
+        }
+        return el.data(DATA);
+    };
 
     $.scrollable = function(opts){
         if(opts == undefined){
@@ -239,17 +258,42 @@
             } else {
                 this.scrollableArea.css('left', 0);
             }
+        },
+        moveX: function(v){
+            if(this.scrolling.x.handle != null){
+                v = (v + this.scrolling.x.handle.width() >= this.scrolling.x.container.width() ? this.scrolling.x.container.width() - this.scrolling.x.handle.width() : v);
+                this.moveArea({left: v}, 'x');
+                this.scrolling.x.handle.css('left', v);
+            }
+            return this;
+        },
+        moveY: function(v){
+            if(this.scrolling.y.handle != null){
+                v = (v + this.scrolling.y.handle.height() >= this.scrolling.y.container.height() ? this.scrolling.y.container.height() - this.scrolling.y.handle.height() : v);
+                this.moveArea({top: v}, 'y');
+                this.scrolling.y.handle.css('top', v);
+            }
+            return this;
         }
     });
 
+    /**
+     * Scrollable plugin
+     *
+     * @param {Object|undefined} [options]
+     * @returns {$.scrollable|jQuery}
+     */
     $.fn.scrollable = function(options){
-        if(options == undefined){
-            options = {};
+        options = options || {};
+        var selector = this.filter('select');
+        if(selector.length > 1){
+            selector.each(function(){
+                getScrollableObject(options, $(this));
+            });
+            return selector;
+        } else {
+            return getScrollableObject(options, $(this));
         }
-        this.each(function(){
-            new $.scrollable($.extend({}, $.fn.scrollable.defaults, options)).init($(this));
-        });
-        return this;
     };
 
     $.fn.scrollable.defaults = {
@@ -259,7 +303,8 @@
         autoHide: true,
         transferScrolling: true
     };
-})(jQuery);
+
+})(jQuery, 'scrollable');
 
 /*! Copyright (c) 2013 Brandon Aaron (http://brandon.aaron.sh)
  * Licensed under the MIT License (LICENSE.txt).
