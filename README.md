@@ -14,6 +14,8 @@ Documentation and Demo : [http://projects.zellerda.com/scrollable](http://projec
 
 Changelog
 ---------
+jQuery Scrollable 1.3
+ - [Issue #1] Add moveX() and moveY()
 
 jQuery Scrollable 1.2 - 25 February 2015
  - Fix mouse scroll speed
