@@ -281,16 +281,17 @@
      * Scrollable plugin
      *
      * @param {Object|undefined} [options]
-     * @returns {$.scrollable|jQuery}
+     * @returns {$.scrollable|Array}
      */
     $.fn.scrollable = function(options){
         options = options || {};
         var selector = this.filter('select');
         if(selector.length > 1){
+            var objects = [];
             selector.each(function(){
-                getScrollableObject(options, $(this));
+                objects.push(getScrollableObject(options, $(this)));
             });
-            return selector;
+            return objects;
         } else {
             return getScrollableObject(options, $(this));
         }
