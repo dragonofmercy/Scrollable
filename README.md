@@ -10,8 +10,6 @@ jQuery Scrollable is a plugin which allows your users to replace default scrollb
  - Do not affect the original design layout
  - Nested scrollbars support
 
-Documentation and Demo : [https://www.zellerda.com/projects/jquery/scrollable](https://www.zellerda.com/projects/jquery/scrollable)
-
 Changelog
 ---------
 jQuery Scrollable 1.3
